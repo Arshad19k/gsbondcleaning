@@ -1,3 +1,11 @@
+<?php 
+
+use Illuminate\Support\Facades\Request;
+
+$urlPath = Request::segment(1);
+
+?>
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -11,17 +19,20 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active"><i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p></a>
+                <li class="nav-item">
+                    <a href="{{ route('dashobard') }}" class="nav-link <?php if($urlPath == 'dashboard') { echo "active"; } ?>"><i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p></a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo e(route('userList')); ?>" class="nav-link"><i class="nav-icon fas fa-user"></i><p>Manage Users</p></a>
+                    <a href="{{ route('usersList') }}" class="nav-link <?php if($urlPath == 'users') { echo "active"; } ?>"><i class="nav-icon fas fa-user"></i><p>Manage Users</p></a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo e(route('orderList')); ?>" class="nav-link"><i class="nav-icon fas fa-broom"></i><p>Manage Orders</p></a>
+                    <a href="{{ route('orderList') }}" class="nav-link <?php if($urlPath == 'orders') { echo "active"; } ?>"><i class="nav-icon fas fa-broom"></i><p>Manage Orders</p></a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?php echo e(route('serviceList')); ?>" class="nav-link"><i class="nav-icon fas fa-tools"></i><p>Manage Services</p></a>
+                    <a href="{{ route('serviceList') }}" class="nav-link <?php if($urlPath == 'services') { echo "active"; } ?>"><i class="nav-icon fas fa-tools"></i><p>Manage Services</p></a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link"><i class="nav-icon fas fa-sign-out-alt"></i><p>Logout</p></a>
                 </li>
             </ul>
         </nav>

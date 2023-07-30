@@ -12,7 +12,7 @@
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Tempusdominus Bootstrap 4 -->
-        <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+        <!-- <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}"> -->
         <!-- iCheck -->
         <!-- <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}"> -->
         <!-- JQVMap -->
@@ -21,7 +21,10 @@
         <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-
+        <!-- Sweetalert -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+        <!-- Datatables -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css"/>
         <!-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> -->
         <!-- Daterange picker -->
         <!-- <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}"> -->
@@ -30,12 +33,14 @@
         <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}"> -->
         @yield('style')
     </head>
-    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <body class="hold-transition sidebar-mini sidebar-collapse layout-fixed layout-navbar-fixed layout-footer-fixed">
         <!-- Site wrapper -->
         <div class="wrapper">
             @include('layouts.header')
             @include('layouts.sidebar')
-            @yield('content')
+            <div class="content-wrapper">
+                @yield('content')
+            </div>
             @include('layouts.footer')
 
         </div>
@@ -46,12 +51,19 @@
         <!-- Bootstrap 4 -->
         <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- daterangepicker -->
-        <!-- <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-        <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script> -->
+        <!-- <script src="{{ asset('plugins/moment/moment.min.js') }}"></script> -->
+        <!-- <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script> -->
         <!-- Tempusdominus Bootstrap 4 -->
         <!-- <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script> -->
         <!-- AdminLTE App -->
         <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+        <!-- <script src="{{ asset('dist/js/demo.js') }}"></script> -->
+        <!-- AdminLTE App -->
+        <script src="{{asset('dist/js/adminlte.min.js') }}"></script>
+        <!-- Sweetalert -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+        <!-- Datatable -->
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
         <!-- select2 js -->
         <!-- <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script> -->
         @yield('scripts')

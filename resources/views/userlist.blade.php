@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+@section('title', 'Users')
 @section('content')
 
 <section class="content-header">
@@ -123,6 +123,37 @@
     </div>
     <!-- End Edit user model -->
 
+    <!-- change user password Model -->
+    <div class="modal fade" id="changeUser_password" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Change Password</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <form action="" id="userChangepass">
+                    @csrf
+                    <input type="hidden" name="cuser_id" id="changeuser_id">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="cpassword">New Password <span class="text-danger text-sm">*</span></label>
+                            <input type="password" class="form-control" name="password" id="cpassword" placeholder="Enter Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="changeconfirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" name="password_confirmation" id="changeconfirm_password" placeholder="Enter Confirm Password">
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End change user password model -->
+
     <div class="container-fluid mt-4">
         <div class="card">
             <div class="col-md-12">
@@ -171,13 +202,28 @@
                             <th>Phone</th>
                             <th>Role</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th width="70px">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
-                          
-                        
+                        @foreach($users as $index => $val)
+                            <tr>
+                                <td>{{$index+1}}</td>
+                                <td>{{$val->name}}</td>
+                                <td>{{ $val->email }}</td>
+                                <td>{{ $val->phone }}</td>
+                                <td>{{ $val->role }}</td>
+                                <td>
+                                    <?php $status = ($val['status'] == 1) ? 'Active' : 'Inactive'; ?>
+                                    {{ $status }}
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn btn-primary btn-xs" title="Edit user" data-id="<?php echo e($val->id); ?>" id="editUser"><i class="fas fa-pen"></i></a>
+                                    <a href="javascript:voif(0)" class="btn btn-danger btn-xs" title="Delete user" data-id="<?php echo e($val->id); ?>" id="deleteUser"><i class="fas fa-trash"></i></a>
+                                    <a href="javascript:voif(0)" class="btn btn-warning btn-xs" title="Change password" data-id="<?php echo e($val->id); ?>" id="changepassword"><i class="fas fa-key"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -206,7 +252,7 @@
                         $('#add_user').hide();
                         swal(
                             'Success',
-                            'User added successfully..',
+                            'User added successfully',
                             'success'
                         ).then(function(){
                             location.reload();
@@ -236,7 +282,7 @@
 
             $.ajax({
                 type : "GET",
-                url : "<?php echo e(route('getUser')); ?>",
+                url : "{{ route('getUser') }}",
                 data : {id : id},
                 success: function(data) {
                     if(data) {
@@ -259,14 +305,14 @@
             
             $.ajax({
                 type : "GET",
-                url : "<?php echo e(route('edituser')); ?>",
+                url : "{{ route('edituser') }}",
                 data : $(this).serialize(),
                 success: function(data) {
                     if(data) {
                         $('#edit_user').modal('hide');
                         swal(
                             'Success',
-                            'User updated successfully..',
+                            'User updated successfully',
                             'success'
                         ).then(function(){
                             location.reload();
@@ -304,7 +350,7 @@
                         success: function(data) {
                             swal(
                                 'Deleted!',
-                                'User deleted successfully..',
+                                'User deleted successfully',
                                 'success'
                             ).then(function(){
                                 location.reload();
@@ -315,6 +361,51 @@
                 }
             })
         });
+
+        $(document).on('click', '#changepassword', function(e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            $('#changeuser_id').val(id);
+            console.log(id);
+
+            $('#changeUser_password').modal('show');
+        });
+
+        $(document).on('submit', '#userChangepass', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type : "POST",
+                url : "{{ route('user_pass') }}",
+                data : $(this).serialize(),
+                success: function(data) {
+                    if(data) {
+                        $('#changeUser_password').modal('hide');
+                        swal(
+                            'Success',
+                            'User password changed successfully',
+                            'success'
+                        ).then(function(){
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            title: 'error',
+                            text: data.msg,
+                            type: 'error'
+                        });
+                    }
+                },
+                error: function (err) {
+                    $('.val_error').remove();
+                    $.each(err.responseJSON.errors, function (i, error) {
+                        var el = $(document).find('[name="'+i+'"]');
+                        el.after($('<span class="val_error" style="color: red; font-size:13px">'+error[0]+'</span>'));
+                    });
+                }
+            })
+        })
     });
 </script>
 
