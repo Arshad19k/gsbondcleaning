@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Auth;
         <div class="row mb-2">
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-left">
-                    <?php if(Auth::user()->is_admin == $_ENV['IS_ADMIN']) { ?>
+                    <?php if(Auth::user()->is_admin == 1) { ?>
                         <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                     <?php } ?>
                     <li class="breadcrumb-item active">Order List</li>
                 </ol>
             </div>
-            <?php if(Auth::user()->is_admin == $_ENV['IS_ADMIN']) { ?>
+            <?php if(Auth::user()->is_admin == 1) { ?>
             <div class="col-sm-6 text-right">
                 <a href="{{ route('addForm') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>&nbsp; Add</a>
             </div>
@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Auth;
     </div><!-- /.container-fluid -->
 
     <div class="container-fluid mt-4">
-        <?php if(Auth::user()->is_admin == $_ENV['IS_ADMIN']) { ?>
+        <?php if(Auth::user()->is_admin == 1) { ?>
         <div class="card">
             <div class="col-md-12">
                 <div class="card-header">
@@ -97,11 +97,11 @@ use Illuminate\Support\Facades\Auth;
                                 </td>
                                 <td>
                                     <a href="javascript:void(0)" class="btn btn-primary btn-xs" title="Upload Images" id="uploadImages" data-id="{{ $val['id'] }}"><i class="fas fa-camera"></i></a>
-                                    <?php if(Auth::user()->is_admin == $_ENV['IS_ADMIN']) { ?>
+                                    <?php if(Auth::user()->is_admin == 1) { ?>
                                     <a href="javascript:void(0)" class="btn btn-primary btn-xs" title="Email user" id="emailUser" data-id="{{ $val['id'] }}"><i class="fas fa-envelope"></i></a>
                                     <?php } ?>
                                     <a href="javascript:void(0)" class="btn btn-warning btn-xs" title="View details" id="viewOrder" data-id="{{ $val['id'] }}"><i class="fas fa-eye"></i></a>
-                                    <?php if(Auth::user()->is_admin == $_ENV['IS_ADMIN']) { ?>
+                                    <?php if(Auth::user()->is_admin == 1) { ?>
                                         <a href="{{ route('getOrderDetail',$val['id']) }}" class="btn btn-primary btn-xs" title="Edit"><i class="fas fa-pen"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-xs" title="Delete" id="deleteOrder" data-id="{{ $val['id'] }}"><i class="fas fa-trash"></i></a>
                                     <?php } ?>

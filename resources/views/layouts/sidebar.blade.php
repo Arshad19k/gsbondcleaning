@@ -20,7 +20,7 @@ $urlPath = Request::segment(1);
       <!-- Sidebar Menu -->
       <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <?php if(Auth::user()->is_admin == $_ENV['IS_ADMIN']) { ?>
+                <?php if(Auth::user()->is_admin == 1) { ?>
                     <li class="nav-item">
                         <a href="{{ route('dashobard') }}" class="nav-link <?php if($urlPath == 'dashboard') { echo "active"; } ?>"><i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p></a>
                     </li>
@@ -34,7 +34,7 @@ $urlPath = Request::segment(1);
                 <!-- <li class="nav-item">
                     <a href="{{ route('serviceList') }}" class="nav-link <?php if($urlPath == 'services') { echo "active"; } ?>"><i class="nav-icon fas fa-tools"></i><p>Manage Services</p></a>
                 </li> -->
-                <?php if(Auth::user()->is_admin == $_ENV['IS_ADMIN']) { ?>
+                <?php if(Auth::user()->is_admin == 1) { ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link"><i class="nav-icon fas fa-envelope"></i><p>Mail History</p></a>
                     </li>
