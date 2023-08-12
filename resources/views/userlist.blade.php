@@ -212,7 +212,10 @@
                                 <td>{{$val->name}}</td>
                                 <td>{{ $val->email }}</td>
                                 <td>{{ $val->phone }}</td>
-                                <td>{{ $val->role }}</td>
+                                <td>
+                                <?php $role = ($val['is_admin'] == 0) ? 'User' : 'Admin'; ?>
+                                    {{ $role }}
+                                </td>
                                 <td>
                                     <?php $status = ($val['status'] == 1) ? 'Active' : 'Inactive'; ?>
                                     {{ $status }}

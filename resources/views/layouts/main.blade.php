@@ -57,10 +57,10 @@
         <!-- Tempusdominus Bootstrap 4 -->
         <!-- <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script> -->
         <!-- AdminLTE App -->
-        <script src="{{ asset('dist/js/adminlte.js') }}"></script>
-        <!-- <script src="{{ asset('dist/js/demo.js') }}"></script> -->
-        <!-- AdminLTE App -->
         <script src="{{asset('dist/js/adminlte.min.js') }}"></script>
+        <!-- <script src="{{ asset('dist/js/adminlte.js') }}"></script> -->
+        <script src="{{ asset('dist/js/demo.js') }}"></script>
+        <!-- AdminLTE App -->
         <!-- Sweetalert -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
         <!-- Datatable -->
