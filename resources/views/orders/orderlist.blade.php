@@ -217,7 +217,10 @@ use Illuminate\Support\Facades\Auth;
 <script>
 
     $(function() {
-        $('#orderTable').DataTable();
+        $('#orderTable').DataTable({
+            "sScrollX": "100%",
+            "sScrollXInner": "110%"
+        });
     });    
 
     // jQuery to get modal for uploading images of particular order

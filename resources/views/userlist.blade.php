@@ -238,7 +238,10 @@
 @section('scripts')
 <script>
     $(document).ready( function(){
-        let ResultTable = $('#user_table').DataTable();
+        let ResultTable = $('#user_table').DataTable({
+            "sScrollX": "100%",
+            "sScrollXInner": "110%"
+        });
         // table.DataTable();
     });
     $(document).ready(function (){
