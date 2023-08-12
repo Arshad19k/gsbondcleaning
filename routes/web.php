@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,12 +42,22 @@ Route::middleware(['auth'])->group(function () {
     // Orders Route
     Route::get('/orders', [OrderController::class,'index'])->name('orderList');
     Route::get('/addOrder', [OrderController::class, 'create'])->name('addForm');
+    Route::get('/viewOrder', [OrderController::class, 'show'])->name('viewOrderDetail');
     Route::post('/storeOrder', [OrderController::class, 'store'])->name('storeform');
-    Route::get('/editOrder', [OrderController::class, 'edit'])->name('getOrderDetail');
-    Route::post('/updateOrder', [OrderController::class, 'update'])->name('updateOrder');
+    Route::get('/editOrder/{id}', [OrderController::class, 'edit'])->name('getOrderDetail');
+    Route::post('/getOrder', [OrderController::class, 'update'])->name('editOrder');
+    Route::post('/uploadImage', [OrderController::class, 'uploadImage'])->name('uploadImage');
+    Route::get('/deleteServimg', [OrderController::class, 'deleteImage'])->name('deleteServImage');
+    Route::get('/delete_order', [OrderController::class, 'destroy'])->name('deleteOrder');
+    Route::get('/sendmail_user', [OrderController::class, 'getUserDetailToSendEmail'])->name('getSendEmail_detail');
 
+    // Send Email
+    Route::post('/send_email', [SendEmailController::class, 'index'])->name('sendEmailToCustomer');
 
     // Service Route
     Route::get('/services',[ServiceController::class,'index'])->name('serviceList');
-
+    Route::post('/add_services',[ServiceController::class,'store'])->name('addSerivce');
+    Route::get('/get_service',[ServiceController::class,'edit'])->name('getSerivce');
+    Route::post('/update_service',[ServiceController::class,'update'])->name('update.service');
+    Route::post('/delete_service',[ServiceController::class,'destroy'])->name('delete.service');
 });

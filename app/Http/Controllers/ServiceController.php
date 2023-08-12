@@ -14,7 +14,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $service = Service::all();
+
+        return view('servicelist', compact(['service']));
     }
 
     /**
@@ -35,7 +37,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

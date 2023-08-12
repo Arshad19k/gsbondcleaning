@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\OrderImage;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -15,7 +19,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::where('deleted', '=', 0)->get();
+        $order = Order::where('deleted', '=', 0)->get()->toArray();
+
+        foreach($order as $key => $ord) {
+            
+            $assign = User::where('id', $ord['assign_to'])->where('deleted', 0)->first();
+
+            $order[$key]['user_name'] = $assign->name;
+        }
 
         $user = User::where('deleted', '=', 0)->where('is_admin', '=', 0)->get();
 
@@ -91,9 +102,18 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(Request $request)
     {
-        //
+        $order = Order::with('images')->where('id', '=', $request->id)->get()->toArray();
+        
+        foreach($order as $key => $ord) {
+            
+            $assign = User::where('id', '=', $ord['assign_to'])->where('deleted', 0)->first();
+
+            $order[$key]['user_name'] = $assign->name;
+        }
+        
+        return $order;
     }
 
     /**
@@ -102,11 +122,17 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        $order = Order::findOrFail($request->id);
+
+        $order = Order::with('images')->findOrFail($id);
+        $user = User::where('deleted', '=', 0)->where('is_admin', '=', 0)->get();
+
+        $totalImage = $order->images;
+
+        // return $totalImage;
         
-        return $order;
+        return view('orders/editmodal', compact(['order', 'user', 'totalImage']));
     }
 
     /**
@@ -118,7 +144,40 @@ class OrderController extends Controller
      */
     public function update(Request $request)
     {
-        return $request;
+        $order  = Order::findOrFail($request->order_id);
+
+        $data = [
+            'assign_to' => $request->assignUser,
+            'fname' => $request->editfname,
+            'lname' => $request->editlname,
+            'phone' => $request->editphone,
+            'message' => $request->editmessage,
+            'address' => $request->editsubrub,
+            'state' => $request->editstate,
+            'zip_code' => $request->editpostCode,
+            'job_date' => $request->editjobdate,
+            'bedroom' => $request->editbedrooms,
+            'bathroom' => $request->editbathroom,
+            'livingroom' => $request->editlivingrooms,
+            'furnished' => $request->editfurnished,
+            'house_type' => $request->edithousetype,
+            'blinds' => $request->editblinds,
+            'howlong' => $request->edithowlong,
+            'carpet' => isset($request->carpet) ? 1 : 0,
+            'pest' => isset($request->pest) ? 1 : 0,
+            'call' => isset($request->call) ? 1 : 0,
+            'sms' => isset($request->sms) ? 1 : 0,
+            'send_email' => isset($request->sendemail) ? 1 : 0,
+            'status' => $request->editstatus,
+        ];
+
+        $res = $order->update($data);
+
+        if ($res) {
+            return response()->json(['status' => true, 'msg' => 'Order updated successfully.']);
+        } else {
+            return response()->json(['status' => false, 'msg' => 'Something went wrong..!']);
+        }
     }
 
     /**
@@ -127,8 +186,98 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Request $request)
     {
-        //
+        $ord = Order::findOrFail($request->id);
+
+        $ord->deleted = 1;
+
+        $res  =  $ord->update();
+
+        if ($res) {
+            return response()->json(['status' => true, 'msg' => 'Order deleted successfully.']);
+        } else {
+            return response()->json(['status' => false, 'msg' => 'Something went wrong..!']);
+        }
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $userId = Auth::id();
+        $order_id = $request->id;
+
+        $validated = $request->validate([
+            'id' => 'required'
+        ]);
+
+        $orderUpdate = Order::findOrFail($order_id);
+
+        if (!empty($request->file('beforeimage'))) {
+            foreach ($request->file('beforeimage') as $imagefile) 
+            {
+                $file_ext = $imagefile->getClientOriginalExtension();
+                $file_name = Str::random(28) .'.'. $file_ext;
+                $path = $imagefile->storeAs('orderImage', $file_name);
+
+                $orderImg = OrderImage::create([
+                    'user_id' => $userId,
+                    'order_id' => $order_id,
+                    'imgname' => $path,
+                    'img_type' => $file_ext,
+                    'img_for' => 1,
+                ]);
+            }
+        }
+
+        if (!empty($request->file('afterimage'))) {
+            foreach ($request->file('afterimage') as $imagefile) 
+            {
+                $file_ext = $imagefile->getClientOriginalExtension();
+                $file_name = Str::random(28) .'.'. $file_ext;
+                $path = $imagefile->storeAs('orderImage', $file_name);
+
+                $orderImg = OrderImage::create([
+                    'user_id' => $userId,
+                    'order_id' => $order_id,
+                    'imgname' => $path,
+                    'img_type' => $file_ext,
+                    'img_for' => 2,
+                ]);
+            }
+        }
+
+        $orderUpdate->updated_at = now();
+
+        $res =    $orderUpdate->save();
+
+        if ($res) {
+            return response()->json(['status' => true, 'msg' => 'Image uploaded successfully.']);
+        } else {
+            return response()->json(['status' => false, 'msg' => 'Something went wrong..!']);
+        }
+    }
+
+    public function deleteImage(Request $request) 
+    {
+        // return $request;
+        $data = OrderImage::findOrFail($request->id);
+
+        
+        Storage::disk('public')->delete($data->imgname);
+
+        $res = $data->delete();
+
+        if ($res) {
+            return response()->json(['status' => true, 'msg' => 'Image deleted successfully.']);
+        } else {
+            return response()->json(['status' => false, 'msg' => 'Something went wrong..!']);
+        }
+    }
+
+    public function getUserDetailToSendEmail(Request $request)
+    {
+        $order = Order::findOrFail($request->id);
+
+        return $order;
     }
 }

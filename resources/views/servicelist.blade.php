@@ -1,9 +1,6 @@
+@extends('layouts.main')
 
-
-<?php $__env->startSection('style'); ?>
-<?php $__env->stopSection(); ?>
-
-<?php $__env->startSection('content'); ?>
+@section('content')
 
 <section class="content-header">
     <div class="container-fluid">
@@ -37,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $__currentLoopData = $service; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $serv): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            @foreach($service as $index => $serv)
                                 <tr>
                                     <td><?php echo e(($index+1)); ?></td>
                                     <td><?php echo e($serv->service_name); ?></td>
@@ -49,7 +46,7 @@
                                         <a href="javascript:void(0)" class="btn btn-danger btn-sm" title="Delete" id="del_serv" data-id="<?=$serv->id?>"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -70,7 +67,7 @@
                 </button>
             </div>
             <form action="" id="addService">
-                <?php echo csrf_field(); ?>
+                @csrf
                 <div class="modal-body">
                     <div class="col-md-12">
                         <label for="serviceName">Service Name</label>
@@ -105,7 +102,7 @@
                 </button>
             </div>
             <form action="" id="edit_Service">
-                <?php echo csrf_field(); ?>
+               @csrf
                 <input type="hidden" name="service_id" id="service_id">
                 <div class="modal-body">
                     <div class="col-md-12">
@@ -130,9 +127,9 @@
     </div>
 </div> 
 
-<?php $__env->stopSection(); ?>
+@endsection
 
-<?php $__env->startSection('scripts'); ?>
+@section('scripts')
 <script>
     $(document).ready( function(){
         let ResultTable = $('#service_table').DataTable();
@@ -144,11 +141,13 @@
             e.preventDefault();
 
            let formData = $(this).serialize(); 
+
+           console.log(formData);
            
            $.ajax({
                 type : "POST",
-                url : "<?php echo e(route('addSerivce')); ?>",
-                data : formData,
+                url : "{{ route('addSerivce') }}",
+                data : $(this).serialize(),
                 success : function(data) {
                     if(data.status) {
                         $('#addService').hide();
@@ -172,7 +171,7 @@
 
             $.ajax({
                 type : "GET",
-                url : "<?php echo e(route('getSerivce')); ?>",
+                url : "{{ route('getSerivce') }}",
                 data : {id : id},
                 success : function(data) {
                     $('#service_id').val(data.id);
@@ -190,7 +189,7 @@
 
             $.ajax({
                 type : "POST",
-                url : "<?php echo e(route('update.service')); ?>",
+                url : "{{ route('update.service') }}",
                 data : $(this).serialize(),
                 success: function(data) {
                     if (data) {
@@ -232,7 +231,7 @@
                 if(isConfirm) {
                     $.ajax({
                         type : "GET",
-                        url : "<?php echo e(route('delete.service')); ?>",
+                        url : "{{ route('delete.service') }}",
                         data : {id : id},
                         success: function(data) {
                             swal(
@@ -250,4 +249,4 @@
     });
 </script>
 
-<?php $__env->stopSection(); ?>
+@endsection

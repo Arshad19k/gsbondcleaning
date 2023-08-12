@@ -25,7 +25,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
         <!-- Datatables -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css"/>
-        <!-- <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}"> -->
+        <!-- style -->
+        <link rel="stylesheet" href="{{ asset('dist/css/style.css') }}">
         <!-- Daterange picker -->
         <!-- <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}"> -->
         <!-- Select2 -->
