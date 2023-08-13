@@ -58,9 +58,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/email_details', [SendEmailController::class, 'emailDetails'])->name('emailDetail');
 
     // Service Route
-    Route::get('/services',[ServiceController::class,'index'])->name('serviceList');
-    Route::post('/add_services',[ServiceController::class,'store'])->name('addSerivce');
-    Route::get('/get_service',[ServiceController::class,'edit'])->name('getSerivce');
-    Route::post('/update_service',[ServiceController::class,'update'])->name('update.service');
-    Route::post('/delete_service',[ServiceController::class,'destroy'])->name('delete.service');
+    // Route::get('/services',[ServiceController::class,'index'])->name('serviceList');
+    // Route::post('/add_services',[ServiceController::class,'store'])->name('addSerivce');
+    // Route::get('/get_service',[ServiceController::class,'edit'])->name('getSerivce');
+    // Route::post('/update_service',[ServiceController::class,'update'])->name('update.service');
+    // Route::post('/delete_service',[ServiceController::class,'destroy'])->name('delete.service');
 });

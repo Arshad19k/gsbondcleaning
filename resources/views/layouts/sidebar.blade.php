@@ -31,9 +31,6 @@ $urlPath = Request::segment(1);
                 <li class="nav-item">
                     <a href="{{ route('orderList') }}" class="nav-link <?php if($urlPath == 'orders' || $urlPath == 'editOrder') { echo "active"; } ?>"><i class="nav-icon fas fa-broom"></i><p>Manage Orders</p></a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a href="{{ route('serviceList') }}" class="nav-link <?php if($urlPath == 'services') { echo "active"; } ?>"><i class="nav-icon fas fa-tools"></i><p>Manage Services</p></a>
-                </li> -->
                 <?php if(Auth::user()->is_admin == 1) { ?>
                     <li class="nav-item">
                         <a href="{{ route('emailDetail') }}" class="nav-link"><i class="nav-icon fas fa-envelope"></i><p>Mail History</p></a>
