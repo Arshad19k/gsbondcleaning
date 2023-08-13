@@ -36,7 +36,7 @@ $urlPath = Request::segment(1);
                 </li> -->
                 <?php if(Auth::user()->is_admin == 1) { ?>
                     <li class="nav-item">
-                        <a href="#" class="nav-link"><i class="nav-icon fas fa-envelope"></i><p>Mail History</p></a>
+                        <a href="{{ route('emailDetail') }}" class="nav-link"><i class="nav-icon fas fa-envelope"></i><p>Mail History</p></a>
                     </li>
                 <?php } ?>
                 <li class="nav-item">

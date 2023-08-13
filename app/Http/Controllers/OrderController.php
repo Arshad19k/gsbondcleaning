@@ -17,15 +17,35 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $order = Order::where('deleted', '=', 0)->get()->toArray();
+        $name = $request->get('name');
+        $email = $request->get('email');
+        $status = $request->get('filterstatus');
+
+        if (!empty($status)) {
+            $status = [$status];
+        } else {
+            $status = [1, 2, 3];
+        }
+
+        $order = Order::query()
+                ->when($name, function ($query, $name) {
+                    $query->where('fname','like','%'.$name.'%');
+                })->when(isset($email), function ($query) use($email) {
+                    $query->where('email', 'like', '%'.$email.'%');
+                })->when(isset($status), function ($query) use($status) {
+                    $query->where('status', $status);
+                })->get()->toArray();
 
         foreach($order as $key => $ord) {
             
-            $assign = User::where('id', $ord['assign_to'])->where('deleted', 0)->first();
+            if(!empty($ord['assign_to'])) {
 
-            $order[$key]['user_name'] = $assign->name;
+                $assign = User::where('id', $ord['assign_to'])->where('deleted', 0)->first();
+    
+                $order[$key]['user_name'] = $assign->name;
+            }
         }
 
         $user = User::where('deleted', '=', 0)->where('is_admin', '=', 0)->get();
@@ -51,6 +71,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
         $valdated = $request->validate([
             'fname' => 'required',
             'lname' => 'required',
@@ -61,7 +82,9 @@ class OrderController extends Controller
             'postcode' => 'required',
             'jobdate' => 'required',
         ]);
-
+        
+        $jobdate = date('Y-m-d', strtotime($request->jobdate));
+        
         $data = [
             'assign_to' => $request->assign_id,
             'fname' => $request->fname,
@@ -72,7 +95,7 @@ class OrderController extends Controller
             'address' => $request->subrub,
             'state' => $request->state,
             'zip_code' => $request->postcode,
-            'job_date' => $request->jobdate,
+            'job_date' => $jobdate,
             'bedroom' => $request->bedroom,
             'bathroom' => $request->bathroom,
             'livingroom' => $request->livingroom,
@@ -144,7 +167,21 @@ class OrderController extends Controller
      */
     public function update(Request $request)
     {
+        $valdated = $request->validate([
+            'editfname' => 'required',
+            'editlname' => 'required',
+            'editphone' => 'required',
+            'editsubrub' => 'required',
+            'editstate' => 'required',
+            'editpostCode' => 'required',
+            'editjobdate' => 'required',
+            'editstate' => 'required',
+            'editpostCode' => 'required',
+        ]);
+
         $order  = Order::findOrFail($request->order_id);
+
+        $jobdate = date('Y-m-d', strtotime($request->editjobdate));
 
         $data = [
             'assign_to' => $request->assignUser,
@@ -155,7 +192,7 @@ class OrderController extends Controller
             'address' => $request->editsubrub,
             'state' => $request->editstate,
             'zip_code' => $request->editpostCode,
-            'job_date' => $request->editjobdate,
+            'job_date' => $jobdate,
             'bedroom' => $request->editbedrooms,
             'bathroom' => $request->editbathroom,
             'livingroom' => $request->editlivingrooms,

@@ -98,6 +98,7 @@
                             <div class="col-md-6 form-group">
                                 <label for="editfurnished">Furnished</label>
                                 <select name="editfurnished" id="editfurnished" class="form-control">
+                                    <option value="">Select option</option>
                                     <option value="1" <?php if($order['furnished'] == 1) { echo "selected"; } ?> >Yes</option>
                                     <option value="0" <?php if($order['furnished'] == 0) { echo "selected"; } ?> >No</option>
                                 </select>
@@ -107,21 +108,21 @@
                             <div class="col-md-6 form-group">
                                 <label for="edithousetype">House Type</label>
                                 <select name="edithousetype" id="edithousetype" class="form-control">
-                                    <option value="">Select</option>
-                                    <option value="unit">Unit</option>
-                                    <option value="house">House</option>
-                                    <option value="two_storey">Two Storey</option>
-                                    <option value="multi_storey">Multi Storey</option>
+                                    <option value="">Select option</option>
+                                    <option value="unit" <?php if($order['house_type'] == 'unit') { echo "selected"; } ?> >Unit</option>
+                                    <option value="house" <?php if($order['house_type'] == 'house') { echo "selected"; } ?> >House</option>
+                                    <option value="two_storey" <?php if($order['house_type'] == 'two_storey') { echo "selected"; } ?> >Two Storey</option>
+                                    <option value="multi_storey" <?php if($order['house_type'] == 'multi_storey') { echo "selected"; } ?> >Multi Storey</option>
                                 </select>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="editblinds">Blinds</label>
                                 <select name="editblinds" id="editblinds" class="form-control">
-                                    <option value="">Select</option>
-                                    <option value="no_blinds">No Blinds</option>
-                                    <option value="verticals">Verticals</option>
-                                    <option value="venetians">Venetians</option>
-                                    <option value="shutters">shutters</option>
+                                    <option value="">Select option</option>
+                                    <option value="no_blinds" <?php if($order['blinds'] == 'no_blinds') { echo "selected"; } ?> >No Blinds</option>
+                                    <option value="verticals" <?php if($order['blinds'] == 'verticals') { echo "selected"; } ?> >Verticals</option>
+                                    <option value="venetians" <?php if($order['blinds'] == 'venetians') { echo "selected"; } ?> >Venetians</option>
+                                    <option value="shutters" <?php if($order['blinds'] == 'shutters') { echo "selected"; } ?> >shutters</option>
                                 </select>
                             </div>
                         </div>
@@ -164,9 +165,9 @@
                                 <label for="editstatus">Status</label>
                                 <select name="editstatus" id="editstatus" class="form-control">
                                     <option value="">Select Status</option>
-                                    <option value="0" <?php if($order['status'] == 0) { echo "selected"; } ?> >Pending</option>
-                                    <option value="1" <?php if($order['status'] == 1) { echo "selected"; } ?> >Running</option>
-                                    <option value="2" <?php if($order['status'] == 2) { echo "selected"; } ?> >Completed</option>
+                                    <option value="1" <?php if($order['status'] == 1) { echo "selected"; } ?> >Pending</option>
+                                    <option value="2" <?php if($order['status'] == 2) { echo "selected"; } ?> >Running</option>
+                                    <option value="3" <?php if($order['status'] == 3) { echo "selected"; } ?> >Completed</option>
                                 </select>
                             </div>
                         </div>
@@ -228,8 +229,15 @@
 @endsection
 
 @section('scripts')
-
 <script>
+    $(function() {
+        $( "#editjobdate" ).datepicker({
+            format: 'yyyy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: false,
+        });
+    });
 
      // jQuery to saved edited order details
     $(document).on('submit', '#editOrderForm', function(e) {

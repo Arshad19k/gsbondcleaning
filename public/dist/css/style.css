@@ -129,4 +129,8 @@ hr {
     .img-modal-content {
       width: 100%;
     }
+    .table-res {
+      display: block;
+      overflow-x: auto;
+    }
   }

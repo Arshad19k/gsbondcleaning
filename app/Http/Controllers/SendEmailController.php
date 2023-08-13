@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\EmailHistory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\Auth;
@@ -68,5 +69,30 @@ class SendEmailController extends Controller
         } catch (\Throwable $th) {
             return ['status' => false, 'msg' => $th->getMessage()];
         }
+    }
+
+
+    public function emailDetails(Request $request)
+    {
+        $email = EmailHistory::all();
+
+        $del_email = [];
+
+        foreach($email as $key => $val) {
+
+            $ord = Order::where('id', $val->order_id)->first();
+            $val['cust_name'] = $ord->fname .' '.$ord->lname;
+
+            $user = User::where('id', $val->user_id)->first();
+
+            $val['send_by'] = $user->name;
+
+            $val['message'] = strip_tags($val->message);
+            $val['date'] = date('d-m-Y', strtotime($val->created_at));
+
+            $del_email[] = $val;
+        }
+
+        return view('emailhistory', compact(['del_email']));
     }
 }

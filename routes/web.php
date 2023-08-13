@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SendEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,9 @@ Route::post('/auth_login',[LoginController::class,'login'])->name('auth.login');
 Route::get('/auth_logout',[LoginController::class,'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
+    
     //dashboard Route
-    Route::get('/dashboard', function() {  return view('dashboard');})->name('dashobard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashobard');
     
     //User Route
     Route::get('/users',[UserController::class,'index'])->name('usersList');
@@ -53,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Send Email
     Route::post('/send_email', [SendEmailController::class, 'index'])->name('sendEmailToCustomer');
+    Route::get('/email_details', [SendEmailController::class, 'emailDetails'])->name('emailDetail');
 
     // Service Route
     Route::get('/services',[ServiceController::class,'index'])->name('serviceList');

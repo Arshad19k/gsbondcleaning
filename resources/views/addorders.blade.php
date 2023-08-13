@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
 </head>
 <body>
     <div class="container">
@@ -17,21 +18,21 @@
                             <div class="row mt-3">
                                 <div class="col-md-6 form-group">
                                     <label for="firstname">First Name</label>
-                                    <input type="text" name="fname" class="form-control" id="firstname" placeholder="Etner First Name">
+                                    <input type="text" name="fname" class="form-control" id="firstname" placeholder="Enter First Name">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="lastname">Last Name</label>
-                                    <input type="text" name="lname" id="lastname" class="form-control" placeholder="Etner Last Name">
+                                    <input type="text" name="lname" id="lastname" class="form-control" placeholder="Enter Last Name">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-md-6 form-group">
                                     <label for="email">email</label>
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="Etner Email">
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="phone">Phone</label>
-                                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Etner Phone">
+                                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Enter Phone">
                                 </div>
                             </div>
                             <div class="col-md-12 mt-4 form-group">
@@ -53,7 +54,7 @@
                                 </div>
                                 <div class="col-md-12 mt-4 form-group">
                                     <label for="jobdate">Job Date</label>
-                                    <input class="form-control" name="jobdate" id="jobdate" class="form-control"/>
+                                    <input class="form-control" name="jobdate" id="jobdate" class="form-control" readonly/>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-6 form-group">
@@ -85,9 +86,9 @@
                                     <div class="col-md-6 form-group">
                                         <label for="furnished">Furnished</label>
                                         <select name="furnished" id="furnished" class="form-control">
-                                            <?php for($i= 0; $i<=10; $i++) { ?>
-                                                <option value="<?=$i;?>"><?=$i;?></option>
-                                            <?php } ?>
+                                            <option value="">Select option</option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
                                         </select>
                                     </div>
                                 </div>
@@ -95,17 +96,22 @@
                                     <div class="col-md-6 form-group">
                                         <label for="housetype">House Type</label>
                                         <select name="housetype" id="housetype" class="form-control">
-                                            <?php for($i= 0; $i<=10; $i++) { ?>
-                                                <option value="<?=$i;?>"><?=$i;?></option>
-                                            <?php } ?>
+                                            <option value="">Select option</option>
+                                            <option value="unit">Unit</option>
+                                            <option value="house">House</option>
+                                            <option value="two_storey">Two Storey</option>
+                                            <option value="multi_storey">Multi Storey</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 form-group">
                                         <label for="blinds">Blinds</label>
                                         <select name="blinds" id="blinds" class="form-control">
-                                            <?php for($i= 0; $i<=10; $i++) { ?>
-                                                <option value="<?=$i;?>"><?=$i;?></option>
-                                            <?php } ?>
+                                            <option value="">Select option</option>
+                                            <option value="no_blinds">No Blinds</option>
+                                            <option value="verticals">Verticals</option>
+                                            <option value="venetians">Venetians</option>
+                                            <option value="rollers">Rollers</option>
+                                            <option value="shutters">Shutters</option>
                                         </select>
                                     </div>
                                     <div class="col-md-12 mt-3 form-group">
@@ -154,4 +160,16 @@
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script>
+  $(function() {
+    $( "#jobdate" ).datepicker({
+    
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: false,
+    });
+  });
+  </script>
 </html>

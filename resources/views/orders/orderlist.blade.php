@@ -1,11 +1,15 @@
 @extends('layouts.main')
 <?php 
 use Illuminate\Support\Facades\Auth;
-?>
-@section('style')
+$query = [];
+$query['filterstatus'] = [];
+$url = $_SERVER['REQUEST_URI'];
+$parts = parse_url($url);
+if(!$parts) {
 
-<!-- <link rel="stylesheet" href="{{ asset('assets/ckeditor5/sample/styles.css') }}"> -->
-@endsection
+    parse_str($parts['query'], $query);
+}
+?>
 
 @section('content')
 
@@ -36,27 +40,29 @@ use Illuminate\Support\Facades\Auth;
                     <h3 class="card-title">Filter</h3>
                 </div>
                 <div class="card-body">
-                    <form action="">
+                    <form action="" method="get">
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" name="name" placeholder="Enter a name">
+                                <input type="text" class="form-control" name="name" value="{{ app('request')->input('name') }}" placeholder="Enter a name">
                             </div>
                             <div class="col-md-3">
                                 <label for="name">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Enter a email">
+                                <input type="email" class="form-control" name="email" value="{{ app('request')->input('email') }}" placeholder="Enter a email">
                             </div>
                             <div class="col-md-3">
-                                <label for="name">service</label>
-                                <select name="service" id="service" class="form-control">
-                                    <option value="">Select service</option>
-                                    <option value="cleaning">Cleaning</option>
+                                <label for="filterstatus">Status</label>
+                                <select name="filterstatus" id="filterstatus" class="form-control">
+                                    <option value="">Select Status</option>
+                                    <option value="1" <?php if($query['filterstatus'] == 1) { echo "selected"; } ?> >Pending</option>
+                                    <option value="2" <?php if($query['filterstatus'] == 2) { echo "selected"; } ?> >Running</option>
+                                    <option value="3" <?php if($query['filterstatus'] == 3) { echo "selected"; } ?> >Completed</option>
                                 </select>
                             </div>
                             <div class="col-md-3 mt-4 align-items-center">
                                 <div class="btn_just justify-content-between">
                                     <button class="btn btn-primary btn-sm">Submit</button>
-                                    <button class="btn btn-default btn-sm">Clear</button>
+                                    <a href="{{ route('orderList') }}" class="btn btn-default btn-sm">Clear</a>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +74,7 @@ use Illuminate\Support\Facades\Auth;
 
         <div class="card">
             <div class="card-body">
-                <table class="table table-striped" id="orderTable">
+                <table class="table-res table-stripped" id="orderTable">
                     <thead>
                         <tr>
                             <th>S No.</th>
@@ -88,11 +94,17 @@ use Illuminate\Support\Facades\Auth;
                                 <td><?php echo $val['fname'].' '.$val['lname']; ?></td>
                                 <td>{{ $val['email'] }}</td>
                                 <td>{{ $val['phone'] }}</td>
-                                <td>{{ $val['user_name'] }}</td>
-                                <td>{{$val['job_date'] }}</td>
+                                <td> 
+                                    @if(!empty($val['user_name']))
+                                        {{ $val['user_name'] }}
+                                    @endif
+                                </td>
+                                <td>
+                                    <?php echo $date = date('d-m-Y', strtotime($val['job_date'])); ?>
+                                </td>
                                 <td>
                                     <?php 
-                                        if ($val['status'] == '0') { echo "Pending"; } elseif ($val['status'] == '1') { echo "Running"; } else {echo "Completed"; }
+                                        if ($val['status'] == '1') { echo "Pending"; } elseif ($val['status'] == '2') { echo "Running"; } else {echo "Completed"; }
                                     ?>
                                 </td>
                                 <td>
@@ -218,8 +230,6 @@ use Illuminate\Support\Facades\Auth;
 
     $(function() {
         $('#orderTable').DataTable({
-            "sScrollX": "100%",
-            "sScrollXInner": "110%"
         });
     });    
 

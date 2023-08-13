@@ -26,16 +26,16 @@
                     <h4 class="modal-title">Add User</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <form action="" id="AddUser">
+                <form action="" method="get" id="AddUser">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Full Name <span class="text-danger text-sm">*</span></label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name">
+                            <input type="text" class="form-control" name="name" id="name" value="{{ app('request')->input('name') }}" placeholder="Enter Name">
                         </div>
                         <div class="form-group">
                             <label for="email">Email <span class="text-danger text-sm">*</span></label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
+                            <input type="email" class="form-control" name="email" id="email" value="{{ app('request')->input('email') }}" placeholder="Enter Email">
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone</label>
@@ -182,7 +182,7 @@
                             <div class="col-md-3 mt-4 align-items-center">
                                 <div class="btn_just justify-content-between">
                                     <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-                                    <button class="btn btn-default btn-sm">Clear</button>
+                                    <a href="{{ route('usersList') }}" class="btn btn-default btn-sm">Clear</a>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
 
         <div class="card">
             <div class="card-body">
-                <table id="user_table">
+                <table id="user_table" class="table-res" width="100%">
                     <thead>
                         <tr>
                             <th>S No.</th>
@@ -239,8 +239,6 @@
 <script>
     $(document).ready( function(){
         let ResultTable = $('#user_table').DataTable({
-            "sScrollX": "100%",
-            "sScrollXInner": "110%"
         });
         // table.DataTable();
     });
