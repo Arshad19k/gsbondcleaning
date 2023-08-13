@@ -23,12 +23,6 @@ class OrderController extends Controller
         $email = $request->get('email');
         $status = $request->get('filterstatus');
 
-        if (!empty($status)) {
-            $status = [$status];
-        } else {
-            $status = [1, 2, 3];
-        }
-
         $order = Order::query()
                 ->when($name, function ($query, $name) {
                     $query->where('fname','like','%'.$name.'%');
