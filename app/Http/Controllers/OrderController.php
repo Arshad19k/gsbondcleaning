@@ -131,9 +131,12 @@ class OrderController extends Controller
         
         foreach($order as $key => $ord) {
             
-            $assign = User::where('id', '=', $ord['assign_to'])->where('deleted', 0)->first();
+            if($ord['assign_to'] != '') {
 
-            $order[$key]['user_name'] = $assign->name;
+                $assign = User::where('id', '=', $ord['assign_to'])->where('deleted', 0)->first();
+    
+                $order[$key]['user_name'] = $assign->name;
+            }
         }
         
         return $order;
