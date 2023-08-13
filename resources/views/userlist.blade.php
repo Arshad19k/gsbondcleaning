@@ -7,7 +7,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-left">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashobard') }}">Dashboard</a></li>
                     <li class="breadcrumb-item active">User List</li>
                 </ol>
             </div>
@@ -165,11 +165,11 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" name="filtername" placeholder="Enter a name">
+                                <input type="text" class="form-control" name="filtername" value="{{ app('request')->input('filtername') }}" placeholder="Enter a name">
                             </div>
                             <div class="col-md-3">
                                 <label for="name">Email</label>
-                                <input type="email" class="form-control" name="filteremail" placeholder="Enter a email">
+                                <input type="email" class="form-control" name="filteremail" value="{{ app('request')->input('filteremail') }}" placeholder="Enter a email">
                             </div>
                             <div class="col-md-3">
                                 <label for="name">Status</label>

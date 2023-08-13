@@ -14,10 +14,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
-        $users = User::where('deleted', '=', 0)->where('is_admin', 0)->get();
+        $name = $request->get('filtername');
+        $email = $request->get('filteremail');
+        $status = $request->get('filterstatus');
+
+        $users = User::query()
+                ->where('deleted', '=', 0)->where('is_admin', 0)
+                ->when($name, function ($query, $name) {
+                    $query->where('name','like','%'.$name.'%');
+                })->when(isset($email), function ($query) use($email) {
+                    $query->where('email', 'like', '%'.$email.'%');
+                })->when(isset($status), function ($query) use($status) {
+                    $query->where('status', $status);
+                })->get();
+
+        // $users = User::where('deleted', '=', 0)->where('is_admin', 0)->get();
+
+        // return  $users;
 
         return view('userlist', compact(['users']));
     }

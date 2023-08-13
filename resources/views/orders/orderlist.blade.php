@@ -19,7 +19,7 @@ if(!$parts) {
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-left">
                     <?php if(Auth::user()->is_admin == 1) { ?>
-                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashobard') }}">Dashboard</a></li>
                     <?php } ?>
                     <li class="breadcrumb-item active">Order List</li>
                 </ol>

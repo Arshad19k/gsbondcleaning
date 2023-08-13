@@ -7,8 +7,8 @@
         <div class="row mb-2">
             <div class="col-sm-12">
                 <ol class="breadcrumb float-sm-left">
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Order List</li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashobard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Email List</li>
                 </ol>
             </div>
         </div>

@@ -20,7 +20,7 @@ class DashboardController extends Controller
             return redirect()->route('orderList');
         }
 
-        $user = User::where('is_admin', 0)->where('deleted', 0)->count();
+        $user = User::where('is_admin', 0)->where('deleted', 0)->where('status', 1)->count();
         
         $pendingOrder = Order::where('deleted', 0)->where('status', 1)->count();
         $runningOrder = Order::where('deleted', 0)->where('status', 2)->count();
