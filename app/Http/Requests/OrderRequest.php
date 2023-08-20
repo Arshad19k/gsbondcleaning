@@ -36,6 +36,7 @@ class OrderRequest extends FormRequest
             'jobdate' => 'required',
         ];
     }
+    
 
     public function failedValidation(Validator $validator)
     {

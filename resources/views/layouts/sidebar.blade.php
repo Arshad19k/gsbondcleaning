@@ -30,7 +30,7 @@ $urlPath = Request::segment(1);
                 <?php } ?>
                 <li class="nav-item">
                     <a href="{{ route('orderList') }}" class="nav-link <?php if($urlPath == 'orders' || $urlPath == 'editOrder') { echo "active"; } ?>"><i class="nav-icon fas fa-broom"></i><p>Manage Orders</p></a>
-                </li>
+                </li> 
                 <?php if(Auth::user()->is_admin == 1) { ?>
                     <li class="nav-item">
                         <a href="{{ route('emailDetail') }}" class="nav-link"><i class="nav-icon fas fa-envelope"></i><p>Mail History</p></a>
