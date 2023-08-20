@@ -25,6 +25,7 @@ class OrderRequest extends FormRequest
      */
     public function rules()
     {
+        
         return [
             'fname' => 'required',
             'lname' => 'required',
