@@ -21,5 +21,6 @@ use App\Http\Controllers\DemoController;
 //     return $request->user();
 // });
 
+
 Route::post('add/order','App\Http\Controllers\OrderController@store');
 Route::post('add/demo', 'App\Http\Controllers\DemoController@add');

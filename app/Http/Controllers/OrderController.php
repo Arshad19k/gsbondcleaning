@@ -70,7 +70,6 @@ class OrderController extends Controller
         
         $jobdate = date('Y-m-d', strtotime($request->jobdate));
         
-        
         $data = [
             'assign_to' => $request->assign_id,
             'fname' => $request->fname,
