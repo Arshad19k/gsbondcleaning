@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\OrderRequest;
 
 class OrderController extends Controller
 {
@@ -63,21 +64,12 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-
-        $valdated = $request->validate([
-            'fname' => 'required',
-            'lname' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'subrub' => 'required',
-            'state' => 'required',
-            'postcode' => 'required',
-            'jobdate' => 'required',
-        ]);
+        return $request;
         
         $jobdate = date('Y-m-d', strtotime($request->jobdate));
+        
         
         $data = [
             'assign_to' => $request->assign_id,
@@ -103,8 +95,6 @@ class OrderController extends Controller
             'sms' => isset($request->sms) ? 1 : 0,
             'send_email' => isset($request->send_email) ? 1 : 0
         ];
-
-        // return $data;
 
         $res = Order::create($data);
 
