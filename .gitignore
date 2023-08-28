@@ -18,5 +18,4 @@ yarn-error.log
 /.vscode
 /app/Http/Controllers/DemoController.php
 /app/Http/Controllers/ServiceController.php
-/app/Http/Helper/*.php
 /config/auth.php

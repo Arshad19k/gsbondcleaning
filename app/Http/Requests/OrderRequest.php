@@ -30,10 +30,12 @@ class OrderRequest extends FormRequest
             'lname' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
-            'subrub' => 'required',
-            'state' => 'required',
-            'postcode' => 'required',
-            'jobdate' => 'required',
+            'service' => 'required',
+            'message' => 'required'
+            // 'subrub' => 'required',
+            // 'state' => 'required',
+            // 'postcode' => 'required',
+            // 'jobdate' => 'required',
         ];
     }
     
