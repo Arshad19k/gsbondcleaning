@@ -65,30 +65,29 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(OrderRequest $request)
-    {
-        return $request;
-        
+    {        
         $jobdate = date('Y-m-d', strtotime($request->jobdate));
         
         
         $data = [
-            'assign_to' => $request->assign_id,
+            // 'assign_to' => $request->assign_id,
             'fname' => $request->fname,
             'lname' => $request->lname,
             'email' => $request->email,
             'phone' => $request->phone,
             'message' => $request->message,
-            'address' => $request->subrub,
-            'state' => $request->state,
-            'zip_code' => $request->postcode,
+            // 'address' => $request->subrub,
+            // 'state' => $request->state,
+            // 'zip_code' => $request->postcode,
             'job_date' => $jobdate,
-            'bedroom' => $request->bedroom,
-            'bathroom' => $request->bathroom,
-            'livingroom' => $request->livingroom,
-            'furnished' => $request->furnished,
-            'house_type' => $request->housetype,
-            'blinds' => $request->blinds,
-            'howlong' => $request->howlong,
+            // 'bedroom' => $request->bedroom,
+            // 'bathroom' => $request->bathroom,
+            // 'livingroom' => $request->livingroom,
+            // 'furnished' => $request->furnished,
+            // 'house_type' => $request->housetype,
+            // 'blinds' => $request->blinds,
+            // 'howlong' => $request->howlong,
+            'services' => $request->services,
             'carpet' => isset($request->carpet) ? 1 : 0,
             'pest' => isset($request->pest) ? 1 : 0,
             'call' => isset($request->call) ? 1 : 0,

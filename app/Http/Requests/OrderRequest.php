@@ -31,6 +31,7 @@ class OrderRequest extends FormRequest
             'phone' => 'required',
             'services' => 'required',
             'message' => 'required',
+            'jobdate' => 'required'
         ];
     }
 
