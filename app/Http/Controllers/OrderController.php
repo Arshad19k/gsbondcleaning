@@ -98,7 +98,7 @@ class OrderController extends Controller
         $res = Order::create($data);
 
         if ($res) {
-            return redirect()->back();
+            return response()->json(['status' => 200, 'msg' => 'Query send successfully.']);
         }
     }
 
