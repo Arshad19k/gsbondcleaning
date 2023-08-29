@@ -26,7 +26,7 @@ if(!$parts) {
             </div>
             <?php if(Auth::user()->is_admin == 1) { ?>
             <div class="col-sm-6 text-right">
-                <a href="{{ route('addForm') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>&nbsp; Add</a>
+                <!-- <a href="{{ route('addForm') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i>&nbsp; Add</a> -->
             </div>
             <?php } ?>
         </div>
