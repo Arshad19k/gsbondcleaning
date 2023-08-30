@@ -31,7 +31,7 @@
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <label for="services">Services</label>
-                                <select name="services" id="services" class="form-control">
+                                <select name="services" id="services" class="form-control" disabled>
                                     <option value="">Select a service</option>
                                     <option value="Care_removals">Care Removals</option>
                                     <option value="Care_bond_cleaning">Care Bond Cleaning</option>
