@@ -300,6 +300,7 @@ if(!$parts) {
                     $('#lname').val(alldata.lname);
                     $('#email').val(alldata.email);
                     $('#phone').val(alldata.phone);
+                    $('#services').val(alldata.services);
                     $('#message').val(alldata.message);
                     $('#subrub').val(alldata.address);
                     $('#state').val(alldata.state);

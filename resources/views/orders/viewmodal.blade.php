@@ -30,6 +30,23 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 form-group">
+                                <label for="services">Services</label>
+                                <select name="services" id="services" class="form-control">
+                                    <option value="">Select a service</option>
+                                    <option value="Care_removals">Care Removals</option>
+                                    <option value="Care_bond_cleaning">Care Bond Cleaning</option>
+                                    <option value="Care_care_cleaning">Care Care Cleaning</option>
+                                    <option value="Care_tiles_grout_cleaning">Care Tiles Grout Cleaning</option>
+                                    <option value="Care_handyman">Care Handyman</option>
+                                    <option value="Care_plumbers">Care Plumbers</option>
+                                    <option value="Care_gardening">Care Gardening</option>
+                                    <option value="Care_electrician">Care Electrician</option>
+                                    <option value="Care_locksmith">Care Locksmith</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
                                 <label for="editmessage">Message</label>
                                 <textarea name="editmessage" class="form-control" id="message" rows="3" disabled></textarea>
                             </div>
