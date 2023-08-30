@@ -55,7 +55,7 @@
                                     <option value="Care_plumbers" <?php if($order->services == 'Care_plumbers') { echo "selected"; } ?> >Care Plumbers</option>
                                     <option value="Care_gardening" <?php if($order->services == 'Care_gardening') { echo "selected"; } ?> >Care Gardening</option>
                                     <option value="Care_electrician" <?php if($order->services == 'Care_electrician') { echo "selected"; } ?> >Care Electrician</option>
-                                    <option value="Care_locksmith" <?php if($order->services == 'Care_locksmith') { echo "selected"; } ?> >Care Locksmith</option>
+                                    <option value="Care_locksmith" <?php if($order->services == 'Care_locksmith')  { echo "selected"; } ?> >Care Locksmith</option>
                                 </select>
                             </div>
                         </div>

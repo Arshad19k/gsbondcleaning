@@ -65,7 +65,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
         try{
             $jobdate = date('Y-m-d', strtotime($request->jobdate));
@@ -196,6 +196,7 @@ class OrderController extends Controller
             'sms' => isset($request->sms) ? 1 : 0,
             'send_email' => isset($request->sendemail) ? 1 : 0,
             'status' => $request->editstatus,
+            'services' => $request->editservices
         ];
 
         $res = $order->update($data);
