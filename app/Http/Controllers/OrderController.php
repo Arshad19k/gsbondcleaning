@@ -68,7 +68,7 @@ class OrderController extends Controller
     {        
         $jobdate = date('Y-m-d', strtotime($request->jobdate));
         
-        return $request;
+        // return $request;
         
         $data = [
             // 'assign_to' => $request->assign_id,
