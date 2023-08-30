@@ -289,6 +289,11 @@
                     $.each(data.errors, function(i, err) {
                         $('#edit'+i).append('<small class="form-text text-danger">'+err+'</small>');
                     });
+                    swal({
+                        title: 'error',
+                        text: data.msg,
+                        type: 'error'
+                    });
                 } else {
                     swal({
                         title: 'error',
