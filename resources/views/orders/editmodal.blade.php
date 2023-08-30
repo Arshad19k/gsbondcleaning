@@ -24,28 +24,32 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <label for="editfname">First Name</label>
-                                <input type="text" class="form-control" name="editfname" id="editfname" value="{{ $order->fname }}" placeholder="Enter First Name">
+                                <label for="fname">First Name</label>
+                                <input type="text" class="form-control" name="fname" id="fname" value="{{ $order->fname }}" placeholder="Enter First Name">
+                                <div id="editfname"></div>
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="editlname">Last Name</label>
-                                <input type="text" class="form-control" name="editlname" id="editlname" value="{{ $order->lname }}" placeholder="Enter last Name">
+                                <label for="lname">Last Name</label>
+                                <input type="text" class="form-control" name="lname" id="lname" value="{{ $order->lname }}" placeholder="Enter last Name">
+                                <div id="editlname"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <label for="editemail">Email</label>
-                                <input type="text" class="form-control" name="editemail" id="editemail" value="{{ $order->email }}" placeholder="Enter Email" readonly>
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" value="{{ $order->email }}" placeholder="Enter Email" readonly>
+                                <div id="editemail"></div>
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="editphone">Phone</label>
-                                <input type="text" class="form-control" name="editphone" id="editphone" value="{{ $order->phone }}" placeholder="Enter Phone">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control" name="phone" id="phone" value="{{ $order->phone }}" placeholder="Enter Phone">
+                                <div id="editphone"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 form-group">
-                                <label for="editservices">Services</label>
-                                <select name="editservices" id="editservices" class="form-control">
+                                <label for="services">Services</label>
+                                <select name="services" id="services" class="form-control">
                                     <option value="">Select a service</option>
                                     <option value="Care_removals" <?php if($order->services == 'Care_removals') { echo "selected"; } ?> >Care Removals</option>
                                     <option value="Care_bond_cleaning" <?php if($order->services == 'Care_bond_cleaning') { echo "selected"; } ?> >Care Bond Cleaning</option>
@@ -57,12 +61,14 @@
                                     <option value="Care_electrician" <?php if($order->services == 'Care_electrician') { echo "selected"; } ?> >Care Electrician</option>
                                     <option value="Care_locksmith" <?php if($order->services == 'Care_locksmith')  { echo "selected"; } ?> >Care Locksmith</option>
                                 </select>
+                                <div id="editservices"></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 form-group">
-                                <label for="editmessage">Message</label>
-                                <textarea name="editmessage" class="form-control" id="editmessage" rows="3">{{ $order->message }}</textarea>
+                                <label for="message">Message</label>
+                                <textarea name="message" class="form-control" id="message" rows="3">{{ $order->message }}</textarea>
+                                <div id="editmessage"></div>
                             </div>
                         </div>
                         <div class="row">
@@ -81,8 +87,9 @@
                                 <input type="text" class="form-control" name="editpostCode" id="editpostCode" value="{{ $order->zip_code }}" placeholder="Enter Post Code">
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="editjobdate">Job Date</label>
-                                <input type="text" class="form-control" name="editjobdate" id="editjobdate" value="{{ $order->job_date }}" placeholder="Enter Job Date">
+                                <label for="jobdate">Job Date</label>
+                                <input type="text" class="form-control" name="jobdate" id="jobdate" value="{{ $order->job_date }}" placeholder="Enter Job Date">
+                                <div id="editjobdate"></div>
                             </div>
                         </div>
                         <div class="row">
@@ -265,17 +272,22 @@
             url : "{{ route('editOrder') }}",
             data : $(this).serialize(),
             beforeSend : function() {
-                $('.btn-submit').css('visibility','hidden');
-                $('.loader').css('display','block');
+                // $('.btn-submit').css('visibility','hidden');
+                // $('.loader').css('display','block');
             },
             success: function(data) {
-                if(data) {
+                if(data.status == 200) {
                     swal(
                         'Success',
                         'Order updated successfully',
                         'success'
                     ).then(function(){
                         location.reload();
+                    });
+                } else if(data.status == 400) {
+                    console.log(data.errors);
+                    $.each(data.errors, function(i, err) {
+                        $('#edit'+i).append('<small class="form-text text-danger">'+err+'</small>');
                     });
                 } else {
                     swal({
@@ -284,6 +296,8 @@
                         type: 'error'
                     });
                 }
+            }, error: function(xhr) {
+                console.log(xhr.responseJSON);
             }
         })
     });

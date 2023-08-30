@@ -155,30 +155,30 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(OrderRequest $request)
     {
-        $valdated = $request->validate([
-            'editfname' => 'required',
-            'editlname' => 'required',
-            'editphone' => 'required',
-            'editsubrub' => 'required',
-            'editstate' => 'required',
-            'editpostCode' => 'required',
-            'editjobdate' => 'required',
-            'editstate' => 'required',
-            'editpostCode' => 'required',
-        ]);
+        // $valdated = $request->validate([
+        //     'fname' => 'required',
+        //     'lname' => 'required',
+        //     'phone' => 'required',
+        //     'editsubrub' => 'required',
+        //     'editstate' => 'required',
+        //     'editpostCode' => 'required',
+        //     'editjobdate' => 'required',
+        //     'editstate' => 'required',
+        //     'editpostCode' => 'required',
+        // ]);
 
         $order  = Order::findOrFail($request->order_id);
 
-        $jobdate = date('Y-m-d', strtotime($request->editjobdate));
+        $jobdate = date('Y-m-d', strtotime($request->jobdate));
 
         $data = [
             'assign_to' => $request->assignUser,
-            'fname' => $request->editfname,
-            'lname' => $request->editlname,
-            'phone' => $request->editphone,
-            'message' => $request->editmessage,
+            'fname' => $request->fname,
+            'lname' => $request->lname,
+            'phone' => $request->phone,
+            'message' => $request->message,
             'address' => $request->editsubrub,
             'state' => $request->editstate,
             'zip_code' => $request->editpostCode,
@@ -196,7 +196,7 @@ class OrderController extends Controller
             'sms' => isset($request->sms) ? 1 : 0,
             'send_email' => isset($request->sendemail) ? 1 : 0,
             'status' => $request->editstatus,
-            'services' => $request->editservices
+            'services' => $request->services
         ];
 
         $res = $order->update($data);
