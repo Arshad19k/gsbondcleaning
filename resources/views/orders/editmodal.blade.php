@@ -44,6 +44,23 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 form-group">
+                                <label for="editservices">Services</label>
+                                <select name="editservices" id="editservices" class="form-control">
+                                    <option value="">Select a service</option>
+                                    <option value="Care_removals" <?php if($order->services == 'Care_removals') { echo "selected"; } ?> >Care Removals</option>
+                                    <option value="Care_bond_cleaning" <?php if($order->services == 'Care_bond_cleaning') { echo "selected"; } ?> >Care Bond Cleaning</option>
+                                    <option value="Care_care_cleaning" <?php if($order->services == 'Care_care_cleaning') { echo "selected"; } ?> >Care Care Cleaning</option>
+                                    <option value="Care_tiles_grout_cleaning" <?php if($order->services == 'Care_tiles_grout_cleaning') { echo "selected"; } ?> >Care Tiles Grout Cleaning</option>
+                                    <option value="Care_handyman" <?php if($order->services == 'Care_handyman') { echo "selected"; } ?> >Care Handyman</option>
+                                    <option value="Care_plumbers" <?php if($order->services == 'Care_plumbers') { echo "selected"; } ?> >Care Plumbers</option>
+                                    <option value="Care_gardening" <?php if($order->services == 'Care_gardening') { echo "selected"; } ?> >Care Gardening</option>
+                                    <option value="Care_electrician" <?php if($order->services == 'Care_electrician') { echo "selected"; } ?> >Care Electrician</option>
+                                    <option value="Care_locksmith" <?php if($order->services == 'Care_locksmith') { echo "selected"; } ?> >Care Locksmith</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
                                 <label for="editmessage">Message</label>
                                 <textarea name="editmessage" class="form-control" id="editmessage" rows="3">{{ $order->message }}</textarea>
                             </div>
