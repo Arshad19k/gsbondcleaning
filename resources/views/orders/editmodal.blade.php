@@ -255,7 +255,7 @@
 @section('scripts')
 <script>
     $(function() {
-        $( "#editjobdate" ).datepicker({
+        $( "#jobdate" ).datepicker({
             format: 'yyyy-mm-dd',
             changeMonth: true,
             changeYear: true,
