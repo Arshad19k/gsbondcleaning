@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\OrderRequest;
+use PhpParser\Node\Stmt\TryCatch;
 
 class OrderController extends Controller
 {
@@ -65,38 +66,40 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
-        $jobdate = date('Y-m-d', strtotime($request->jobdate));
+    {
+        try{
+            $jobdate = date('Y-m-d', strtotime($request->jobdate));
         
-        // return $request;
-        
-        $data = [
-            // 'assign_to' => $request->assign_id,
-            'fname' => $request->fname,
-            'lname' => $request->lname,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'message' => $request->message,
-            // 'address' => $request->subrub,
-            // 'state' => $request->state,
-            // 'zip_code' => $request->postcode,
-            'job_date' => $jobdate,
-            // 'bedroom' => $request->bedroom,
-            // 'bathroom' => $request->bathroom,
-            // 'livingroom' => $request->livingroom,
-            // 'furnished' => $request->furnished,
-            // 'house_type' => $request->housetype,
-            // 'blinds' => $request->blinds,
-            // 'howlong' => $request->howlong,
-            'services' => $request->services,
-            'carpet' => isset($request->carpet) ? 1 : 0,
-            'pest' => isset($request->pest) ? 1 : 0,
-            'call' => isset($request->call) ? 1 : 0,
-            'sms' => isset($request->sms) ? 1 : 0,
-            'send_email' => isset($request->send_email) ? 1 : 0
-        ];
-
-        $res = Order::create($data);
+            $data = [
+                // 'assign_to' => $request->assign_id,
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'message' => $request->message,
+                // 'address' => $request->subrub,
+                // 'state' => $request->state,
+                // 'zip_code' => $request->postcode,
+                'job_date' => $jobdate,
+                // 'bedroom' => $request->bedroom,
+                // 'bathroom' => $request->bathroom,
+                // 'livingroom' => $request->livingroom,
+                // 'furnished' => $request->furnished,
+                // 'house_type' => $request->housetype,
+                // 'blinds' => $request->blinds,
+                // 'howlong' => $request->howlong,
+                'services' => $request->services,
+                'carpet' => isset($request->carpet) ? 1 : 0,
+                'pest' => isset($request->pest) ? 1 : 0,
+                'call' => isset($request->call) ? 1 : 0,
+                'sms' => isset($request->sms) ? 1 : 0,
+                'send_email' => isset($request->send_email) ? 1 : 0
+            ];
+    
+            $res = Order::create($data);
+        } catch(\Throwable $th) {
+            return response()->json(['status' => 500, 'msg' => $th]);
+        }
 
         if ($res) {
             return response()->json(['status' => 200, 'msg' => 'Query send successfully.']);
