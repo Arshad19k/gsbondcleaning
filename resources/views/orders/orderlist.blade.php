@@ -77,11 +77,10 @@ if(!$parts) {
                 <table class="table-res table-stripped" id="orderTable">
                     <thead>
                         <tr>
-                            <th>S No.</th>
+                            <th width="7%">S No.</th>
                             <th>Name</th>
-                            <th>email</th>
+                            <th>Services</th>
                             <th>Phone</th>
-                            <th>Assign To</th>
                             <th>Job date</th>
                             <th>Status</th>
                             <th width="105px">Action</th>
@@ -92,13 +91,13 @@ if(!$parts) {
                             <tr>
                                 <td>{{$index+1}}</td>
                                 <td><?php echo $val['fname'].' '.$val['lname']; ?></td>
-                                <td>{{ $val['email'] }}</td>
+                                <td>{{ $val['services'] }}</td>
                                 <td>{{ $val['phone'] }}</td>
-                                <td> 
+                                <!-- <td> 
                                     @if(!empty($val['user_name']))
                                         {{ $val['user_name'] }}
                                     @endif
-                                </td>
+                                </td> -->
                                 <td>
                                     <?php echo $date = date('d-m-Y', strtotime($val['job_date'])); ?>
                                 </td>

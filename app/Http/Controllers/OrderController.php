@@ -37,6 +37,7 @@ class OrderController extends Controller
 
         foreach($order as $key => $ord) {
             
+            $order[$key]['services'] = ucwords(str_replace('_', ' ', $ord['services']));
             if(!empty($ord['assign_to'])) {
 
                 $assign = User::where('id', $ord['assign_to'])->where('deleted', 0)->first();

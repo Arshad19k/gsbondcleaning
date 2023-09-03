@@ -276,7 +276,7 @@
                 // $('.loader').css('display','block');
             },
             success: function(data) {
-                if(data.status == 200) {
+                if(data.status) {
                     swal(
                         'Success',
                         'Order updated successfully',
@@ -284,9 +284,6 @@
                     ).then(function(){
                         location.reload();
                     });
-                } else if(data.status == 400) {
-                    console.log(data.errors);
-                    
                 } else {
                     swal({
                         title: 'error',
