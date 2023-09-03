@@ -286,14 +286,7 @@
                     });
                 } else if(data.status == 400) {
                     console.log(data.errors);
-                    $.each(data.errors, function(i, err) {
-                        $('#edit'+i).append('<small class="form-text text-danger">'+err+'</small>');
-                    });
-                    swal({
-                        title: 'error',
-                        text: data.msg,
-                        type: 'error'
-                    });
+                    
                 } else {
                     swal({
                         title: 'error',
@@ -303,6 +296,15 @@
                 }
             }, error: function(xhr) {
                 console.log(xhr.responseJSON);
+                swal({
+                    title: 'error',
+                    text:   'Something went wrong',
+                    type: 'error'
+                });
+                let err = xhr.responseJSON;
+                $.each(err.errors, function(i, err) {
+                    $('#edit'+i).append('<small class="form-text text-danger">'+err+'</small>');
+                });
             }
         })
     });

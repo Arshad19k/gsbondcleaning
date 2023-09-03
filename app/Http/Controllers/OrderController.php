@@ -156,19 +156,16 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(OrderRequest $request)
+    public function update(Request $request)
     {
-        // $valdated = $request->validate([
-        //     'fname' => 'required',
-        //     'lname' => 'required',
-        //     'phone' => 'required',
-        //     'editsubrub' => 'required',
-        //     'editstate' => 'required',
-        //     'editpostCode' => 'required',
-        //     'editjobdate' => 'required',
-        //     'editstate' => 'required',
-        //     'editpostCode' => 'required',
-        // ]);
+        $valdated = $request->validate([
+            'fname' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'services' => 'required',
+            'message' => 'required',
+            'jobdate' => 'required'
+        ]);
 
         $order  = Order::findOrFail($request->order_id);
 
