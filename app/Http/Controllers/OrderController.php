@@ -26,6 +26,7 @@ class OrderController extends Controller
         $status = $request->get('filterstatus');
 
         $order = Order::query()
+                ->where('deleted', 0)
                 ->when($name, function ($query, $name) {
                     $query->where('fname','like','%'.$name.'%');
                 })->when(isset($email), function ($query) use($email) {
